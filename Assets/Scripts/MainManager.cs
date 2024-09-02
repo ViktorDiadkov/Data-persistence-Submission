@@ -62,6 +62,14 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            } else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (m_Points > GameData.RecordScore)
+                {
+                    GameData.Instance.UpdateRecord(m_Points);
+                    GameData.Save();
+                }
+                SceneManager.LoadScene(0);
             }
         }
     }
@@ -72,8 +80,7 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"{GameData.Instance.userName} Score : {m_Points}";
         if (m_Points > GameData.RecordScore)
         {
-            GameData.Instance.UpdateRecord(m_Points);
-            RecordText.text = $"Best Score : {GameData.BestUser} : {GameData.RecordScore}";
+            RecordText.text = $"Best Score : {GameData.Instance.userName} : {m_Points}";
         }
 
     }
